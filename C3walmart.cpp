@@ -4,15 +4,16 @@
 #include<sstream>
 using namespace std;
 struct items{
-	int itemId, basePrice, baseUnits, p1, u1, p2, u2, p3, u3, p4, u4;
+	int itemId, basePrice, baseUnits, p1, u1, p2, u2, p3, u3, p4, u4, baseRevenuePerItem;
 };
 int main(){
 	ifstream item;
 	item.open("dataset.csv");
-
+	int baseUnitsSum=0,baseRevenuesum=0;
+	
 	if(!item.is_open())
 		cout<<"not opened"<<endl;
-	string item_id, base_price, base_units, price1, unit1, price2, unit2, price3, unit3, price4, unit4;
+	string item_id, base_price, base_units, price1, unit1, price2, unit2, price3, unit3, price4, unit4,baseRevenuePerItem;
 	items arr[301];
 	int i=1;
 	getline(item, item_id, ',');
@@ -71,9 +72,15 @@ int main(){
 		
 		stringstream geek10(unit4);
 		geek10>>arr[i].u4;
-		//cout<<arr[i].itemId<<endl;
-		cout<<arr[i].basePrice<<" "<<arr[i].baseUnits<<" "<<arr[i].p1<<" "<<arr[i].u1<<" "<<arr[i].p2<<" "<<arr[i].u2<<" "<<arr[i].p3<<" "<<arr[i].u3<<" "<<arr[i].p4<<" "<<arr[i].u4<<endl;
-		cout<<arr[i].basePrice*arr[i].baseUnits<<endl;
+		
+		arr[i].baseRevenuePerItem = arr[i].basePrice * arr[i].baseUnits;
+		
+		baseUnitsSum = baseUnitsSum + arr[i].baseUnits; 
+		
+		baseRevenuesum = baseRevenuesum + arr[i].baseRevenuePerItem;
+		
+		//cout<<arr[i].basePrice<<" "<<arr[i].baseUnits<<" "<<arr[i].p1<<" "<<arr[i].u1<<" "<<arr[i].p2<<" "<<arr[i].u2<<" "<<arr[i].p3<<" "<<arr[i].u3<<" "<<arr[i].p4<<" "<<arr[i].u4<<endl;
+		//cout<<arr[i].basePrice*arr[i].baseUnits<<endl;
 		i++;
 		}
 	item.close();

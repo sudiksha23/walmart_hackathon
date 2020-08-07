@@ -158,7 +158,7 @@ int main(){
 		for(i=1;i<301;i++)
 			cout<<arr[i].result<<endl;
 		//cout<<arr[i].itemId<<" "<<arr[i].basePrice<<" "<<arr[i].baseUnits<<" "<<arr[i].p1<<" "<<arr[i].u1<<" "<<arr[i].p2<<" "<<arr[i].u2<<" "<<arr[i].p3<<" "<<arr[i].u3<<" "<<arr[i].p4<<" "<<arr[i].u4<<" "<<arr[i].k<<endl;
-		cout<<endl<<revenueGainAsk<<" "<<quantityGainAsk;
+		//cout<<endl<<revenueGainAsk<<" "<<quantityGainAsk;
 	//	cout<<revenueGainAsk;
 	item.close();
 }

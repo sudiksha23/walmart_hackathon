@@ -6,9 +6,7 @@ using namespace std;
 struct items{
 	int itemId, basePrice, baseUnits, p1, u1, p2, u2, p3, u3, p4, u4, baseRevenuePerItem;
 	int revenuePrice1,revenuePrice2,revenuePrice3,revenuePrice4;
-	int hitPrice1,hitPrice2,hitPrice3,hitPrice4;
 	int finalHit;
-	int finalHitPrice;
 	int k;
 	string result;
 };
@@ -34,8 +32,8 @@ int smallest(int p1,int p2, int p3, int p4)
 int main(){
 	ifstream item;
 	item.open("dataset.csv");
-	int baseUnitsSum=0,baseRevenuesum=0;
-	float revenueGainAsk=10,quantityGainAsk=25;
+	int baseUnitsSum=0,baseRevenuesum=0,finalHitPrice=0;
+	float revenueGainAsk=7,quantityGainAsk=20;
 
 	if(!item.is_open())
 		cout<<"not opened"<<endl;
@@ -133,38 +131,47 @@ int main(){
 					arr[i].result="Price1";
 					revenueGainAsk=revenueGainAsk-(arr[i].revenuePrice1-arr[i].baseRevenuePerItem);
 					quantityGainAsk=quantityGainAsk-(arr[i].u1-arr[i].baseUnits);
+					arr[i].finalHit=(arr[i].basePrice-arr[i].p1)*arr[i].u1;
 				}
 			else if(p2==d)
 				{
 					arr[i].result="Price2";
 					revenueGainAsk=revenueGainAsk-(arr[i].revenuePrice2-arr[i].baseRevenuePerItem);
 					quantityGainAsk=quantityGainAsk-(arr[i].u2-arr[i].baseUnits);
+					arr[i].finalHit=(arr[i].basePrice-arr[i].p2)*arr[i].u2;
+				
 				}
 			else if(p3==d)
 				{
 					arr[i].result="Price3";
 					revenueGainAsk=revenueGainAsk-(arr[i].revenuePrice3-arr[i].baseRevenuePerItem);
 					quantityGainAsk=quantityGainAsk-(arr[i].u3-arr[i].baseUnits);
+					arr[i].finalHit=(arr[i].basePrice-arr[i].p3)*arr[i].u3;
+				
 				}
 			else if(p4==d)
 				{
 					arr[i].result="Price4";
 					revenueGainAsk=revenueGainAsk-(arr[i].revenuePrice4-arr[i].baseRevenuePerItem);
 					quantityGainAsk=quantityGainAsk-(arr[i].u4-arr[i].baseUnits);
+					arr[i].finalHit=(arr[i].basePrice-arr[i].p4)*arr[i].u4;
+				
 				}
+				finalHitPrice=finalHitPrice+arr[i].finalHit;
 			i++;
 		}
 		sort(arr,arr+301,comparebyid);
 		ofstream myresult;
-		myresult.open("scenario1.csv");
+		myresult.open("scenario3.csv");
 		myresult<<"Item Id"<<","<<"Price"<<endl;
 		for(i=1;i<301;i++)
 		{
-			myresult<<arr[i].itemId<<","<<arr[i].result<<endl;
 			//cout<<arr[i].result<<" ";
+			myresult<<arr[i].itemId<<","<<arr[i].result<<endl;
+			
 		}
 		//cout<<arr[i].itemId<<" "<<arr[i].basePrice<<" "<<arr[i].baseUnits<<" "<<arr[i].p1<<" "<<arr[i].u1<<" "<<arr[i].p2<<" "<<arr[i].u2<<" "<<arr[i].p3<<" "<<arr[i].u3<<" "<<arr[i].p4<<" "<<arr[i].u4<<" "<<arr[i].k<<endl;
-		cout<<revenueGainAsk<<" "<<quantityGainAsk;
-	//	cout<<revenueGainAsk;
-	item.close();
+		cout<<" revenueGainAsk = "<<revenueGainAsk<<" "<<"quantityGainAsk = "<<quantityGainAsk<<" finalHitPrice = "<<finalHitPrice;
+
+		item.close();
 }
